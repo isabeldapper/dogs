@@ -1,0 +1,36 @@
+GET /posts
+req: {}
+res: {
+    posts: [
+        {
+            titulo: string,
+            conteudo: string,
+            tags: [string]
+            autor: {
+                nome: string,
+                foto: string
+            },
+            data: Date,
+            comentarios: [
+                {
+                    conteudo: string,
+                    autor: {
+                        nome: string,
+                        foto: string
+                    },
+                    data: Date
+                }
+            ]
+        }
+    ]    
+}
+
+POST /posts
+res: {
+    titulo: string,
+    conteudo: string,
+    tags: [string]
+    autor: {
+        nome: string,
+        foto: string
+    },

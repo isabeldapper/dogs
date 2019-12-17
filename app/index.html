@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pets" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="./node_modules/angular/angular.js"></script>
+    <script>
+        const pets = angular.module("pets", [])
+
+        pets.controller("petsController", function($scope, petsService) {
+            petsService.get().then(response => $scope.listaPets = response.data)
+        })
+
+        pets.service("petsService", function($http) {
+            this.get = () => $http.get("http://localhost:3000/pets")
+        })
+
+    </script>
+</head>
+
+<body ng-controller="petsController">
+    <h1>Galeria de Pets</h1>
+
+    {{listaPets | json}}
+
+    <ul >
+        <li ng-repeat="pet in listaPets">
+            <div><h2>{{pet.nome}}</h2></div>
+            <div><span>{{pet.especie}}</span></div>
+            <div><img ng-src="{{pet.foto}}" alt="foto de {{pet.nome}}" /></div>
+        </li>
+    </ul>
+    <p ng-show="listaPets.length === 0">Não existem pets cadastrados.</p>
+
+    
+</body>
+
+</html>
